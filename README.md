@@ -13,8 +13,8 @@ Role-Based Login System with Authentication & Authorization
 
 1. Clone the repository:
    ```bash
-   git clone [your-repository-url]
-   cd [repository-name]
+   git clone https://github.com/ishant9805/rbac_django.git
+   cd rbac_django
    ```
 
 2. Create a virtual environment:
