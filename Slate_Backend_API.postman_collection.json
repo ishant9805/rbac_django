@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "664bdaac-d5fc-4f96-a7be-264fcd3ba078",
+		"name": "Slate Backend API",
+		"description": "Role-Based Authentication System API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41957233"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login as School",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"access_token\", jsonData.access);",
+									"pm.environment.set(\"refresh_token\", jsonData.refresh);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"school@slate.com\",\n    \"password\": \"123456\",\n    \"role\": \"school\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						},
+						"description": "Login as school administrator"
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Parent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"access_token\", jsonData.access);",
+									"pm.environment.set(\"refresh_token\", jsonData.refresh);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"parent@slate.com\",\n    \"password\": \"654321\",\n    \"role\": \"parent\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						},
+						"description": "Login as parent"
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"access_token\", jsonData.access);",
+									"pm.environment.set(\"refresh_token\", jsonData.refresh);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"student@slate.com\",\n    \"password\": \"987654\",\n    \"role\": \"student\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						},
+						"description": "Login as student"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/dashboard/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								""
+							]
+						},
+						"description": "Get role-specific dashboard"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Achievements",
+			"item": [
+				{
+					"name": "List Achievements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/achievements/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								""
+							]
+						},
+						"description": "List achievements based on user role"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Achievement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"student\": 4,\n    \"school_name\": \"ABC School\",\n    \"achievements\": \"Hackathon Winner\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/achievements/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								""
+							]
+						},
+						"description": "Create new achievement (School only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Achievement Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>ID</th>\r",
+									"        <th>Student</th>\r",
+									"        <th>School Name</th>\r",
+									"        <th>Achievements</th>\r",
+									"    </tr>\r",
+									"    <tr>\r",
+									"        <td>{{response.id}}</td>\r",
+									"        <td>{{response.student}}</td>\r",
+									"        <td>{{response.school_name}}</td>\r",
+									"        <td>{{response.achievements}}</td>\r",
+									"    </tr>\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return { response: pm.response.json() }\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/achievements/4/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"4",
+								""
+							]
+						},
+						"description": "Get specific achievement details"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Achievement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"student\": 4,\n    \"school_name\": \"ABC School\",\n    \"achievements\": \"Updated Achievement\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/achievements/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"1",
+								""
+							]
+						},
+						"description": "Update achievement (School only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Achievement",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/achievements/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"1",
+								""
+							]
+						},
+						"description": "Delete achievement (School only)"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

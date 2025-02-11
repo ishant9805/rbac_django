@@ -55,6 +55,11 @@ class StudentAchievementViewSet(viewsets.ModelViewSet):
     serializer_class = StudentAchievementSerializer
     permission_classes = [permissions.IsAuthenticated, IsParentOrStudentUser, IsSchoolUser]
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [permissions.IsAuthenticated(), IsSchoolUser()]
+        return super().get_permissions()
+
     def get_queryset(self):
         user = self.request.user
         if user.role == 'school':
@@ -65,5 +70,3 @@ class StudentAchievementViewSet(viewsets.ModelViewSet):
             return StudentAchievement.objects.filter(student_id=user.linked_student_id)
         return StudentAchievement.objects.none()
     
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
