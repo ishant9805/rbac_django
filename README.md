@@ -1,49 +1,71 @@
-### **Phase 1: Project Setup**
-1. **Initialize a Django Project**  
-   - ✅ Create a virtual environment  
-   - ✅ Install Django and DRF  
-   - ✅ Set up a new Django project and app
+# RBAC_Django
 
-2. **Set Up Database (PostgreSQL/MySQL)**  
-   - Configure `settings.py` to use PostgreSQL/MySQL  
-   - Create necessary models (Users, Student Achievements)
+Role-Based Login System with Authentication & Authorization
 
----
 
-### **Phase 2: Authentication System (JWT)**
-3. **User Model & Role-Based Authentication**  
-   - Extend Django’s `AbstractUser` to include a `role` field  
-   - Implement JWT authentication using `djangorestframework-simplejwt`  
-   - Create `/auth/login` API that verifies email, password, and role selection  
+## Prerequisites
 
-4. **Password Hashing** (Bonus)  
-   - Use `bcrypt` or Django’s default hashing mechanism  
+- Python 3.10.5
+- PostgreSQL
+- pip (Python package installer)
 
-5. **Forgot Password Functionality** (Bonus)  
-   - Implement email-based password reset  
+## Installation
 
----
+1. Clone the repository:
+   ```bash
+   git clone [your-repository-url]
+   cd [repository-name]
+   ```
 
-### **Phase 3: Role-Based Access Control**
-6. **Role-Based Dashboard Redirection**  
-   - Return different responses based on user role after login  
+2. Create a virtual environment:
+   ```bash
+   py -m venv venv
+   ```
 
-7. **API Access Control**  
-   - Use Django permissions to restrict:  
-     - Schools (can manage student achievements)  
-     - Parents & Students (can only view their own data)  
+3. Activate the virtual environment:
+     ```bat
+     venv\Scripts\activate
+     ```
 
-8. **Student Achievements API**  
-   - Create `GET /student/achievements/{student_id}` endpoint  
-   - Ensure proper role-based access control  
 
----
+4. Install required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### **Phase 4: API Documentation & Testing**
-9. **Postman Collection**  
-   - Document all API endpoints and test them  
+## Database Configuration
 
-10. **Prepare README & Push Code to GitHub**  
-   - Include setup instructions in `README.md`  
+The project uses PostgreSQL as its database. You can just edit the setup.bat file in root directory.
 
----
+## Running the Server
+
+Simply run the setup script:
+```bash
+setup.bat
+```
+
+## Project Structure
+```
+project/
+│
+├── slate_root/           # Main project directory
+│   ├── slate_root/      # Main project app
+|   ├── users/           # rbac system
+│   └── manage.py        # Django management script
+│
+├── postman_collection.json # Postman collection for api testing
+├── requirements.txt     # Project dependencies
+├── setup.bat           # Windows setup script
+└── README.md          # Project documentation
+```
+
+## Built With
+
+- [Django](https://www.djangoproject.com/) - The web framework used
+- [PostgreSQL](https://www.postgresql.org/) - Database
+- [Django-Rest-Framework](https://www.django-rest-framework.org/) - REST Api
+- [PyJWT](https://www.django-rest-framework.org/) - JWT authentication
+
+## Authors
+
+- Ishant Kumar - [ishant9805](https://github.com/ishant9805)
